@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -41,6 +42,19 @@ public class AdminContoller {
 		String msg = adminService.updateProductPrice(id, price);
 		
 		ApiResponse<String> response = new ApiResponse<>("Product price updated successfully", msg);
+		
+		return ResponseEntity.ok(response);
+		
+		
+		
+	}
+	
+	@DeleteMapping("/delete-product/{id}")
+	public ResponseEntity<ApiResponse<String>> deleteProduct(@PathVariable Long id){
+		
+		String msg = adminService.deleteProduct(id);
+		
+		ApiResponse<String> response = new ApiResponse<>("Product deleted Successfully", msg);
 		
 		return ResponseEntity.ok(response);
 		

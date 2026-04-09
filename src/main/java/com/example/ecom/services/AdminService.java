@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,7 +18,7 @@ public class AdminService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	private static final String UPLOAD_DIR = "D:\\RESTapiUploadFile\\product_img\\";
+	public static final String UPLOAD_DIR = "D:\\RESTapiUploadFile\\product_img\\";
 	
 	public String addProduct(String name, String discription, double price, MultipartFile file) throws IOException {
 		
@@ -39,7 +40,7 @@ public class AdminService {
 		product.setName(name);
 		product.setDescription(discription);
 		product.setPrice(price);
-		product.setImagePath(path);
+		product.setImagePath(fileName); //Store only file name
 		
 		productRepository.save(product);
 		
@@ -52,7 +53,10 @@ public class AdminService {
 	
 	public String updateProductPrice(Long id, double price) {
 		
+		
 		Optional<ProductEntity> ops_product = productRepository.findById(id);
+		
+		if(ops_product!=null) {
 		
 		ProductEntity product =  ops_product.get();
 		
@@ -61,6 +65,33 @@ public class AdminService {
 		productRepository.save(product);
 		
 		return "Price of product "+product.getName()+" updated successfully to "+product.getPrice();
+		}
+		else {
+			throw new RuntimeException("Product not found with id "+id);
+		}
+		
+		
+	}
+	
+	public String deleteProduct(Long id) {
+		
+		
+		Optional<ProductEntity> ops_product = productRepository.findById(id);
+		
+		ProductEntity product;
+		
+		if(ops_product.isPresent()) {
+			product = ops_product.get();
+		}
+		else {
+			throw new RuntimeException("Product not found");
+		}
+			
+		
+		productRepository.delete(product);
+		
+		
+		return "Product "+product.getName()+ " deleted successfully";
 		
 		
 	}

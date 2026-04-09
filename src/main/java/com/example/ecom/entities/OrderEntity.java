@@ -1,9 +1,9 @@
 package com.example.ecom.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -28,6 +29,10 @@ public class OrderEntity {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private List<OrderItemEntity> items;
+	
 	
 	public enum OrderStatus{
 		 	PENDING,
@@ -65,6 +70,12 @@ public class OrderEntity {
 	}
 	public void setOrderStatus(OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+	public List<OrderItemEntity> getItems() {
+		return items;
+	}
+	public void setItems(List<OrderItemEntity> items) {
+		this.items = items;
 	}
 
 }
