@@ -1,11 +1,16 @@
 package com.example.ecom.entities;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,6 +25,10 @@ public class UserEntity {
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@OneToMany(mappedBy = "user")
+	@JsonIgnore
+	private List<OrderEntity> orders;
 	
 	public enum Role {
 	    ADMIN,

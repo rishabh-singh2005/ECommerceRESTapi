@@ -4,7 +4,14 @@ public class OrderItemDto {
 	
 	 private Long productId;
 	 private int quantity;
+	 private double price;
 	 
+	 public double getPrice() {
+		return price;
+	}
+	 public void setPrice(double price) {
+		 this.price = price;
+	 }
 	 public Long getProductId() {
 		 return productId;
 	 }

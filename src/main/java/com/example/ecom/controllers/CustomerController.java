@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ecom.dtos.OrderRequestDto;
+import com.example.ecom.entities.OrderEntity;
 import com.example.ecom.entities.ProductEntity;
 import com.example.ecom.response.ApiResponse;
 import com.example.ecom.services.AdminService;
@@ -110,6 +111,18 @@ public class CustomerController {
 		return ResponseEntity.ok(response);
 		
 		
+	}
+	
+	@GetMapping("/my-orders")
+	public ResponseEntity<ApiResponse<List<OrderEntity>>> getMyOrders(Authentication auth){
+		
+		String email = auth.getName();
+		
+		List<OrderEntity> lis_orders = customerService.getMyOrders(email);
+		
+		ApiResponse<List<OrderEntity>> response = new ApiResponse<>("Order Details ", lis_orders);
+		
+		return ResponseEntity.ok(response);
 	}
 	
 }

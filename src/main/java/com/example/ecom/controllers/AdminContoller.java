@@ -1,11 +1,15 @@
 package com.example.ecom.controllers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -14,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.ecom.dtos.OrderResponseDto;
+import com.example.ecom.entities.OrderItemEntity;
+import com.example.ecom.entities.UserEntity;
 import com.example.ecom.response.ApiResponse;
 import com.example.ecom.services.AdminService;
 
@@ -58,6 +65,18 @@ public class AdminContoller {
 		
 		return ResponseEntity.ok(response);
 		
+		
+		
+	}
+	
+	@GetMapping("/customer-orders/{id}")
+	public ResponseEntity<ApiResponse<OrderResponseDto>>  getCustomerOrders(@PathVariable int id){
+		
+		OrderResponseDto orders = adminService.getCustomerOrders(id);
+		
+		ApiResponse<OrderResponseDto> response = new ApiResponse<>("Customer order Details ", orders);
+		
+		return ResponseEntity.ok(response);
 		
 		
 	}

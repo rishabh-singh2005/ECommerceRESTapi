@@ -86,7 +86,7 @@ public class CustomerService {
 			item.setPrice(product.getPrice());
 			item.setOrder(order);
 			
-			totalAmount = product.getPrice()*dto.getQuantity();
+			totalAmount += product.getPrice()*dto.getQuantity();
 			
 			orderItems.add(item);
 		}
@@ -99,8 +99,32 @@ public class CustomerService {
 		return "Order created successfully with amount "+totalAmount;
 		
 		
+	}
+	
+	public List<OrderEntity> getMyOrders(String email) {
+		
+		Optional<UserEntity> ops_user = userRepository.findByEmail(email);
+		
+		UserEntity user = ops_user.get();
+		
+		System.out.println(user.getName());
+		
+		List<OrderEntity> order_details = orderRepository.findByUser(user);
+		
+		for(OrderEntity o : order_details) {
+			System.out.println(o.getId());
+			System.out.println(o.getOrderAmount());
+			System.out.println(o.getUser().getName());
+			
+		}
+		
+		return order_details;
 		
 		
 	}
+	
+	
+	
+
 
 }
