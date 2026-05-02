@@ -33,7 +33,7 @@ public class AdminService {
 	@Autowired
 	private ProductRepository productRepository;
 	
-	public static final String UPLOAD_DIR = "D:\\RESTapiUploadFile\\product_img\\";
+	public static final String UPLOAD_DIR = "uploads/product_img/";
 
     AdminService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
@@ -75,7 +75,7 @@ public class AdminService {
 		
 		Optional<ProductEntity> ops_product = productRepository.findById(id);
 		
-		if(ops_product!=null) {
+		if(ops_product.isPresent()) {
 		
 		ProductEntity product =  ops_product.get();
 		

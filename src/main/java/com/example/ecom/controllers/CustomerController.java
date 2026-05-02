@@ -75,8 +75,10 @@ public class CustomerController {
 		
 		List<ProductEntity> lis_product = res_page.getContent();
 		
+		String baseUrl = "https://ecommercerestapi-production.up.railway.app";
+		
 		for(ProductEntity p : lis_product) {
-			p.setImagePath("http://localhost:8080/app/product-image/" + p.getImagePath());
+			p.setImagePath(baseUrl + "/app/product-image/" + p.getImagePath());
 		}
 		
 		ApiResponse<Page<ProductEntity>> response = new ApiResponse<>("List of all products", res_page);
