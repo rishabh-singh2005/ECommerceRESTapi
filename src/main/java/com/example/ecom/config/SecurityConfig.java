@@ -26,8 +26,8 @@ public class SecurityConfig  {
 	}
 	
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) {
-		return config.getAuthenticationManager();
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+	    return config.getAuthenticationManager();
 	}
 	
 	@Autowired
