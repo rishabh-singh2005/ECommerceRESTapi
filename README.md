@@ -35,7 +35,7 @@ The project uses secure role-based access control for Admin and Customer users.
 
 ## Live Deployment
 
-[www.ecommercerestapi.com](http://www.ecommercerestapi.com)
+https://ecommercerestapi-27cx.onrender.com/swagger-ui.html
 
 ## GitHub Repository
 
